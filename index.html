@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tibia Check</title>
+    <link rel="icon" href="./tibia-ico.png" sizes="192x192">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    
+    <h1 style="display: flex; text-align: center; justify-content: center;">Verificação de Guild dos Players</h1>
+    <input type="file" id="excelFile" accept=".xlsx">
+    <button onclick="processarArquivo()">Processar</button>
+    <div id="resultado"></div>
+    <script src="script.js"></script>
+</body>
+</html>
