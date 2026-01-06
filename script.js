@@ -30,7 +30,7 @@ async function processarArquivo() {
         // Para cada valor, chamar a API e coletar dados
         const resultados = [];
         let counter = 0
-        for (const valor of valores) {
+        for (const valor.trim() of valores) {
             try {
                 const response = await fetch(`https://api.tibiadata.com/v4/character/${encodeURIComponent(valor)}`);
                 if (!response.ok) throw new Error('Erro na API');
