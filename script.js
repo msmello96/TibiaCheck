@@ -16,9 +16,9 @@ async function processarArquivo() {
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
         // Encontrar o índice da coluna 'QUAL SEU NICK'
-        const colunaIndex = jsonData[0].indexOf('QUAL SEU NICK?');
+        const colunaIndex = jsonData[0].indexOf('Nick do Character');
         if (colunaIndex === -1) {
-            alert('Coluna "QUAL SEU NICKK" não encontrada!');
+            alert('Coluna Nick do Character" não encontrada!');
             return;
         }
 
