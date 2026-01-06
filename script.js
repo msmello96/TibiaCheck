@@ -29,17 +29,15 @@ async function processarArquivo() {
 
         // Para cada valor, chamar a API e coletar dados
         const resultados = [];
-        let counter = 0
-        for (const valor.trim() of valores) {
+        for (const valor of valores) {
             try {
-                const response = await fetch(`https://api.tibiadata.com/v4/character/${encodeURIComponent(valor)}`);
+                const response = await fetch(`https://api.tibiadata.com/v4/character/${encodeURIComponent(valor.trim())}`);
                 if (!response.ok) throw new Error('Erro na API');
                 const json = await response.json();
                 const char = json.character.character;
                 const name = char.name;
                 const guild = (char.guild && char.guild.name) ? char.guild.name : 'Sem Guild';
-                counter = counter + 1
-                resultados.push({ counter, name, guild });
+                resultados.push({ name, guild });
             } catch (error) {
                 console.error(`Erro ao processar ${valor}: ${error}`);
                 // Opcional: adicionar um resultado de erro, ex: resultados.push({ name: valor, guild: 'Erro na API' });
@@ -58,10 +56,11 @@ function exibirResultados(resultados) {
         divResultado.innerHTML = '<p>Nenhum resultado encontrado.</p>';
         return;
     }
-
-    let tabela = '<table><tr><th>Character Name</th><th>Guild</th></tr>';
+    let counter = 0;
+    let tabela = '<table><th>ID</th><tr><th>Character Name</th><th>Guild</th></tr>';
     resultados.forEach(item => {
-        tabela += `<tr><td>${item.name}</td><td>${item.guild}</td></tr>`;
+        counter += 1;
+        tabela += `<tr><td>${counter}</td><td>${item.name}</td><td>${item.guild}</td></tr>`;
     });
     tabela += '</table>';
     divResultado.innerHTML = tabela;
