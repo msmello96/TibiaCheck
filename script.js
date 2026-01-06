@@ -29,6 +29,7 @@ async function processarArquivo() {
 
         // Para cada valor, chamar a API e coletar dados
         const resultados = [];
+        let counter = 0
         for (const valor of valores) {
             try {
                 const response = await fetch(`https://api.tibiadata.com/v4/character/${encodeURIComponent(valor)}`);
@@ -37,7 +38,8 @@ async function processarArquivo() {
                 const char = json.character.character;
                 const name = char.name;
                 const guild = (char.guild && char.guild.name) ? char.guild.name : 'Sem Guild';
-                resultados.push({ name, guild });
+                counter = counter + 1
+                resultados.push({ counter, name, guild });
             } catch (error) {
                 console.error(`Erro ao processar ${valor}: ${error}`);
                 // Opcional: adicionar um resultado de erro, ex: resultados.push({ name: valor, guild: 'Erro na API' });
