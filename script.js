@@ -29,7 +29,13 @@ async function processarArquivo() {
 
         // Mostrar progresso inicial
         const divResultado = document.getElementById('resultado');
-        divResultado.innerHTML = `<p>Processando ${valores.length} personagens... Por favor, aguarde.</p>`;
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const progressInfo = document.getElementById('progressInfo');
+        
+        divResultado.innerHTML = '';
+        progressContainer.classList.add('active');
 
         // Processar com delay entre requisições
         const resultados = [];
@@ -61,18 +67,22 @@ async function processarArquivo() {
             }
 
             processados++;
-            // Atualizar progresso
-            divResultado.innerHTML = `<p>Processando: ${processados}/${valores.length} personagens...</p>`;
+            // Atualizar barra de progresso
+            const percentual = Math.round((processados / valores.length) * 100);
+            progressBar.style.width = percentual + '%';
+            progressText.textContent = percentual + '%';
+            progressInfo.textContent = `Processando: ${processados}/${valores.length} personagens...`;
         }
 
-        // Exibir resultados finais
+        // Esconder barra de progresso e exibir resultados
+        progressContainer.classList.remove('active');
         exibirResultados(resultados);
     };
     reader.readAsArrayBuffer(file);
 }
 
 // Função para fazer requisição com retry
-async function fetchComRetry(characterName, tentativas = 3) {
+async function fetchComRetry(characterName, tentativas = 5) {
     const apiUrl = `https://api.tibiadata.com/v4/character/${encodeURIComponent(characterName)}`;
     
     for (let i = 0; i < tentativas; i++) {
@@ -101,7 +111,7 @@ async function fetchComRetry(characterName, tentativas = 3) {
                 throw error;
             }
             // Esperar antes de tentar novamente
-            await sleep(35000); // 35 segundos
+            await sleep(35000);
         }
     }
 }

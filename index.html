@@ -9,9 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-    <h1>Verificação de Guild dos Players</h1>
     
     <div class="container">
+        <h1>Verificação de Guild dos Players</h1>
+        
         <div class="info">
             <strong>ℹ️ Instruções:</strong>
             <ul>
@@ -30,6 +31,16 @@
                        style="width: 100px; padding: 10px; border: 2px solid #667eea; border-radius: 5px;">
             </div>
             <button onclick="processarArquivo()" id="btnProcessar">Processar</button>
+        </div>
+
+        <!-- Barra de Progresso -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="progressBar" style="width: 0%;">
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+            </div>
+            <div class="progress-info" id="progressInfo">Processando personagens...</div>
         </div>
 
         <div id="resultado"></div>
